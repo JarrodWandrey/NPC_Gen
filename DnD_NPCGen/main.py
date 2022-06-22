@@ -35,7 +35,7 @@ def npcprint():
 def clearall():
     text.config(state='normal')
     text.delete('1.0', 'end')
-    text.config(state='diabled')
+    text.config(state='disabled')
 
 #creates a button to generate the text file of npcs
 generate = Button(root, text="generate!", command= getandlook ,highlightbackground='lightgray')
