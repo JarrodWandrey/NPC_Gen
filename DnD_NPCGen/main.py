@@ -1,5 +1,3 @@
-from faulthandler import disable
-from textwrap import wrap
 import tkinter
 import getdata,writefile,pullnpc
 from tkinter import Label, Tk, Canvas, Button, Widget, ttk, messagebox, Entry
@@ -14,16 +12,29 @@ canvas = Canvas(root,width=600,height=500,bg='darkgrey')#create a canvas to put 
 canvas.create_text(250,50,text="Dungeon and Dragons NPC Generator",font=('Helvetica 19 bold'))#Text placed on the opened window
 canvas.pack()
 
-#generate data and open file
-def getandlook():
-    getdata.get_data(10)
-    writefile.write_file()
-    tkinter.messagebox.showinfo("Complete!","NPCs Generated!")
-    pullnpc.usedbin.clear()
+#textbox for user to pull specific number of npcs
+tb = tkinter.Entry(root, width=5, text='10')
+tb.insert(0,'10')
+tb.pack()
+tb.place(x=80,y=90)
 
 text = tkinter.Text(root,height=20,width=55, wrap=tkinter.WORD)#create text box for npc data
 text.place(x=120,y=90)
 text.config(state='disabled')#disables ability to manually write in text box
+
+#generate data and open file
+def getandlook():
+    total = int(tb.get()) #casts the entry box input into an integer
+    if total % 10 != 0:
+        text.config(state='normal')
+        text.delete('1.0', 'end')
+        text.insert('insert', 'ERROR: program only generates in increments of 10')
+        text.config(state='disabled')
+    else:
+        getdata.get_data(total)
+        writefile.write_file()
+        tkinter.messagebox.showinfo("Complete!","NPCs Generated!")
+    pullnpc.usedbin.clear()
 
 #create a output of npc details on the window when 'pick' button is pressed
 def npcprint():
@@ -38,26 +49,28 @@ def clearall():
     text.delete('1.0', 'end')
     text.config(state='disabled')
 
-
 # #function to pull multiple npcs
 e = tkinter.Entry(root, width=5)#create entry box for numbers
 e.pack()
 e.place(x=60, y=155)
 
-
+#Function to control the 'pick many' option of taking multiple entries out of the data
 def pickmany():
     val = int(e.get()) #casts the entry box input into an integer
-    while val != 0: #loop to print out multiple npcs
-        text.config(state='normal')#changes state of text box to be written into
-        text.insert('insert', pullnpc.pull_npc())
-        text.insert('insert', '\n')
-        val = val - 1
-    text.config(state='disabled')
-
+    if val < 9 and val > 0:
+        while val != 0: #loop to print out multiple npcs for number inputed
+            text.config(state='normal')#changes state of text box to be written into
+            text.insert('insert', pullnpc.pull_npc())
+            text.insert('insert', '\n')
+            val = val - 1
+        text.config(state='disabled')
+    else:
+        text.insert('insert', 'ERROR: Incorrect input entered (digits 1-9)')
 
 #funtion to show pickmany function
 def showmany():
     text.config(state='normal')#changes state of text box to be written into
+    text.delete('1.0', 'end')
     text.insert('insert', pickmany())#insert npc data to the textbox
     text.config(state='disabled')#close the textbox for edition once finished
 
