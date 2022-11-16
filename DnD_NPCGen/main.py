@@ -25,12 +25,12 @@ text.config(state='disabled')#disables ability to manually write in text box
 #generate data and open file
 def getandlook():
     total = int(tb.get()) #casts the entry box input into an integer
-    if total % 10 != 0:
+    if total % 10 != 0: #condition to make sure the user only inputs increments of 10(website scraper does ten at a time)
         text.config(state='normal')
         text.delete('1.0', 'end')
         text.insert('insert', 'ERROR: program only generates in increments of 10')
         text.config(state='disabled')
-    else:
+    else: #otherwise gen the number inputted into the entry box
         getdata.get_data(total)
         writefile.write_file()
         tkinter.messagebox.showinfo("Complete!","NPCs Generated!")
