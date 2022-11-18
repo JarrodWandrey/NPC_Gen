@@ -10,7 +10,7 @@ def get_data(num):
         page.goto('https://donjon.bin.sh/fantasy/random/#type=npc;npc-order=common')
         settings.NPCs = []
 
-        while(len(settings.NPCs) < num):
+        while(len(settings.NPCs) < num): #function to gather the information from the website
             html = page.inner_html('#out')
             soup = BeautifulSoup(html, 'html.parser')
             npc_list = soup.find_all('li')
