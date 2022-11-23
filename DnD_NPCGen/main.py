@@ -8,7 +8,7 @@ root = Tk() #creates window object
 root.title("DnD Npc Generator") #sets window title
 root.configure(width=800, height=400) #set dimensions of window
 
-canvas = Canvas(root,width=600,height=500,bg='darkgrey')#create a canvas to put text on
+canvas = Canvas(root,width=600,height=500,bg='grey')#create a canvas to put text on
 canvas.create_text(250,50,text="Dungeon and Dragons NPC Generator",font=('Helvetica 19 bold'))#Text placed on the opened window
 canvas.pack()
 
@@ -18,7 +18,7 @@ tb.insert(0,'10')
 tb.pack()
 tb.place(x=80,y=90)
 
-text = tkinter.Text(root,height=20,width=55, wrap=tkinter.WORD)#create text box for npc data
+text = tkinter.Text(root,height=20,width=55, wrap=tkinter.WORD, bg='lightgrey')#create text box for npc data
 text.place(x=120,y=90)
 text.config(state='disabled')#disables ability to manually write in text box
 
@@ -75,23 +75,23 @@ def showmany():
     text.config(state='disabled')#close the textbox for edition once finished
 
 #create button to pick many
-pickmore = Button(root, text="Pick :", command=showmany, highlightbackground='lightgray')
+pickmore = Button(root, text="Pick :", command=showmany, highlightbackground='gray', bg='lightgray')
 pickmore.place(x=20, y=150)
 
 #creates a button to generate the text file of npcs
-generate = Button(root, text="generate!", command= getandlook ,highlightbackground='lightgray')
+generate = Button(root, text="generate!", command= getandlook, highlightbackground='gray', bg='lightgray')
 generate.place(x=20,y=90)
 
 #Button to pull random NPC from list of downloaded NPCs
-pick = Button(root, text="Pick One", command=npcprint, highlightbackground='lightgray')
+pick = Button(root, text="Pick One", command=npcprint, highlightbackground='gray', bg='lightgray')
 pick.place(x=20, y=120)
 
 #Button to close the window
-close = Button(root,text="Close", command=root.destroy, highlightbackground='lightgray')
+close = Button(root,text="Close", command=root.destroy, highlightbackground='gray', bg='lightgray')
 close.place(x=20,y=390)
 
 #Button to clear generated text from window
-cleartext = Button(root, text='Clear', command=clearall, highlightbackground='lightgray')
+cleartext = Button(root, text='Clear', command=clearall, highlightbackground='gray', bg='lightgray')
 cleartext.place(x=20, y=200)
 
 root.mainloop()
